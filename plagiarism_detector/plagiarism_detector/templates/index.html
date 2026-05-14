@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Plagiarism Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="card">
+
+        <h1>📄 Plagiarism Detector</h1>
+        <p class="subtitle">Upload files and check similarity</p>
+
+        <form action="/check" method="post" enctype="multipart/form-data">
+
+            <input type="file" name="files" multiple required class="file-input">
+
+            <button type="submit" class="btn">
+                Check Similarity
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

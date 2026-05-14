@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Result</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="result-card">
+
+        <h1>📊 Plagiarism Report</h1>
+
+        <div class="score">
+            {{ score }}%
+        </div>
+
+        <div class="chart-box">
+            <canvas id="chart"></canvas>
+        </div>
+
+        <div class="suggestion">
+            {{ suggestion }}
+        </div>
+
+        <div class="matches">
+            <h3>Similar Sentences</h3>
+
+            {% for m in matches %}
+            <div class="match-box">
+                <p><b>Text 1:</b> {{ m[0] }}</p>
+                <p><b>Text 2:</b> {{ m[1] }}</p>
+                <p class="sim">Similarity: {{ m[2] }}%</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="actions">
+            <a href="/download"><button class="btn">Download</button></a>
+            <a href="/"><button class="btn secondary">Back</button></a>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+const similarity = {{ score }};
+const originality = 100 - similarity;
+
+new Chart(document.getElementById('chart'), {
+    type: 'doughnut',
+    data: {
+        labels: ['Copied', 'Original'],
+        datasets: [{
+            data: [similarity, originality],
+            backgroundColor: ['#ff4d4d', '#4CAF50']
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+</script>
+
+</body>
+</html>
